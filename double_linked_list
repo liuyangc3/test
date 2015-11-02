@@ -1,0 +1,17 @@
+class Node(object):
+    def __init__(self, data):
+        self.data= data
+        self.prev = None
+        self.next = None
+        
+class DoubleLinkedList(object)
+    def __init__(self):
+        self.count = 0  # numbers of nodes
+        self.head = None  # first node
+        self.tail = None  # last node
+        
+    def insert(self):
+        pass
+        
+    def remove(self):
+        pass
