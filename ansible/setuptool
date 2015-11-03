@@ -1,0 +1,16 @@
+- name: install setuptool
+  hosts: "{{ host }}"
+  remote_user: root
+
+  tasks:
+    - name: copy setuptool
+      copy: src=setuptools-18.5.zip dest=/tmp
+
+    - name: unzip setuptool
+      command: unzip -f /tmp/setuptools-18.5.zip -d /tmp
+
+    - name: install setuptool
+      command: chdir=/tmp/setuptools-18.5 {{ item }}
+      with_items:
+      - /usr/local/bin/python2.7 setup.py build
+      - /usr/local/bin/python2.7 setup.py install
