@@ -1,0 +1,16 @@
+- name: install pip
+  hosts: "{{ host }}"
+  remote_user: root
+
+  tasks:
+    - name: copy pip
+      copy: src=pip-7.1.2.tar.gz dest=/tmp
+
+    - name: unzip pip
+      command: tar zxf /tmp/pip-7.1.2.tar.gz -C /tmp
+
+    - name: install pip
+      command: chdir=/tmp/pip-7.1.2 {{ item }}
+      with_items:
+      - /usr/local/bin/python2.7 setup.py build
+      - /usr/local/bin/python2.7 setup.py install
