@@ -42,10 +42,12 @@ x
 3
 1 2 3
 ```
-find item index, get "" if item not in array 
+get index of item, index start with `0`
+
+return `""` if item not in array  
 ```
-foo=(a b "hello world" c)
-foo_index "hello world"
+foo=(a b foo c)
+foo_index "foo"
 ----
 2
 ```
