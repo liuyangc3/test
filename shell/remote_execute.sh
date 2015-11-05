@@ -7,7 +7,7 @@ passwd=$2
 passwd=`echo ${passwd/$/\\\\$}`  # $ --> \$
 passwd=`echo ${passwd/&/\\&}`    # & --> \&
 
-auto_ssh_copy() {
+auto_ssh_login() {
   # copy id_rsa.pub to remote
   local ip=$1
   local passwd=$2
@@ -66,5 +66,5 @@ EOF
 }
 
 # main
-auto_ssh_copy_id $ip $passwd
+auto_ssh_login $ip $passwd
 remote_execute $3
