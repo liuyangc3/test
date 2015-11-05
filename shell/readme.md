@@ -3,19 +3,24 @@ Opereate shell array like Python list .
 
 to make operating array in shell easier.
 
-## install
+## get easyarray
 ```
-wget https://raw.githubusercontent.com/liuyangc3/easy-shell-array/master/easyarray
+wget https://raw.githubusercontent.com/liuyangc3/test/master/shell/easyarray
 ```
 ## example
 ```
 #!/bin/sh
+# source easyarray
 . /path-to-script/easyarray
 
 foo=(1 2 3)
 
-easyarray_init foo # init a array
+# init, turn shell array into easyarray
+easyarray_init foo 
+
+# append item
 foo_append "x"
+# echo array
 foo_echo
 ----
 1 2 3 x
