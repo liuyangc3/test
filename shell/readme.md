@@ -20,6 +20,7 @@ easyarray_init foo
 
 # append item
 foo_append "x"
+
 # echo array
 foo_echo
 ----
