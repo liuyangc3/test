@@ -1,0 +1,44 @@
+# -*-Shell-script-*-
+# author: web 
+
+# Make sure umask is sane
+umask 022
+
+# Set up a default search path.
+PATH="/sbin:/usr/sbin:/bin:/usr/bin"
+export PATH
+
+easyarray_init() {
+  local name="$1"
+  
+  eval "${name}_echo() {
+    echo \${$name[@]}
+  }"
+
+  eval "${name}_len() {
+    echo \${#$name[@]}
+  }"
+
+  eval "${name}_append() {
+    eval \"$name+=(\$1)\"
+  }"
+
+  eval "${name}_pop() {
+    local len=\$(eval echo \${#$name[@]})
+    let len-=1
+    eval \"echo \${$name[\$len]} && unset $name[\$len]\"
+   }"
+
+  eval "${name}_index() {
+    local count=0
+    for i in \"\${$name[@]}\"
+    do
+      if [ \"\$1\" == \"\$i\" ];then
+        echo \$count
+        return 0
+      fi
+      let count+=1
+    done
+    return 1
+  }"
+}
