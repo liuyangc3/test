@@ -19,11 +19,11 @@ buildscript {
 
 }
 
-def render(template, out_path) {
+def render(template, config_file) {
     def temp_lines = file(template).readLines("UTF-8")
-    def out_file = file(out_path)
-    if(out_file.exists()) {out_file.delete()}
-    def printWriter = new PrintWriter(out_file)
+    def config = file(config_file)
+    if(config.exists()) {config.delete()}
+    def printWriter = new PrintWriter(config)
 
     // do render
     temp_lines.each{line ->
