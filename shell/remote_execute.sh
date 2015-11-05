@@ -50,13 +50,13 @@ log_user 0
 spawn ssh root@$ip
 expect "*~]#" {
   send "$command\r"
+  expect "$command" {}   
+  expect -re {\n(.*)\n.*} {
+    set out \$expect_out(1,string)
+  }
+  send "exit\r"
+  puts \$out
 }
-expect "$command" {}   
-expect -re {\n(.*)\n.*} {
-  set out \$expect_out(1,string)
-}
-send "exit\r"
-puts \$out
 close
 exit
 EOF
