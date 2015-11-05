@@ -12,31 +12,31 @@ auto_ssh_copy() {
   local ip=$1
   local passwd=$2
 
-  expect << EOF
-    set timeout -1
-    # exp_internal 1 for debug
-    spawn sudo -u jenkins ssh-copy-id root@$ip
-    expect { 
-        "*yes/no" {
-            send "yes\r"
-            exp_continue
-        }
-        "*password:" {
-            puts "\n开始发送密码..."
-            send "$passwd\r"
-            exp_continue
-        }
-        eof {
-            send_user "eof\n"
-            exit
-        }
-        timeout {
-            send \003
-            send_user "timeout \n"
-            exit
-        }
-    }
-  EOF
+expect << EOF
+  set timeout -1
+  # exp_internal 1 for debug
+  spawn sudo -u jenkins ssh-copy-id root@$ip
+  expect { 
+      "*yes/no" {
+          send "yes\r"
+          exp_continue
+      }
+      "*password:" {
+          puts "\n开始发送密码..."
+          send "$passwd\r"
+          exp_continue
+      }
+      eof {
+          send_user "eof\n"
+          exit
+      }
+      timeout {
+          send \003
+          send_user "timeout \n"
+          exit
+      }
+  }
+EOF
 }
 
 remote_execute() {
@@ -60,7 +60,7 @@ remote_execute() {
       puts \$hostname
       close
       exit
-    EOF
+EOF
 )
   echo $output
 }
