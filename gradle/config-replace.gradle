@@ -1,0 +1,76 @@
+apply plugin: 'war'
+
+sourceCompatibility = 1.7
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.codehaus.groovy.modules.http-builder:http-builder:0.5.2"
+    }
+
+}
+
+def render(template, out_path) {
+    def temp_lines = file(template).readLines("UTF-8")
+    def out_file = file(out_path)
+    if(out_file.exists()) {out_file.delete()}
+    def printWriter = new PrintWriter(out_file)
+
+    // do render
+    temp_lines.each{line ->
+        if (line.startsWith("#")) {
+            printWriter.println(line)
+        }
+        else {
+            def m = line =~ /(?<=\{\{ ).+(?= \}\})/
+            if(m.getCount()) {
+                // 替换
+                def key = m[0]
+                def newline = line.replace("{{ "+ key + " }}", getValue(key))
+                printWriter.println(newline)
+            } else {
+                // 原样输出
+                printWriter.println(line)
+            }
+        }
+    }
+    printWriter.close()
+}
+
+def getValue(key){
+    def http = new groovyx.net.http.HTTPBuilder("http://cmdb.t.nxin.com")
+    def (project, service_name, service_attr) = key.tokenize(".")
+    def gen_query = { p, sname, sattr ->
+        if(sattr) {return [p: p, sname: sname, sattr: sattr]}
+        return [p: p, sname: sname]
+    }
+    http.get(path: "/api/v1/test/search", query: gen_query(project, service_name, service_attr)){resp, json ->
+        def res = json.text()
+        def ip_list = new groovy.json.JsonSlurper().parseText(res)
+        switch (service_name) {
+            case  "zookeeper":
+                res = ip_list.join(",")
+                break
+            case "activemq":
+                res = "failover:(tcp://" + ip_list.join(",tcp://") + ")"
+                break
+            default:
+                break
+        }
+    return res
+    }
+}
+
+
+task testenv << {
+    render("i.template", "o.config")
+}
