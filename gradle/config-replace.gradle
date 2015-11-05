@@ -27,9 +27,8 @@ def render(template, config_file) {
         } else {
             def m = line =~ /(?<=\{\{ ).+(?= \}\})/
             if(m.getCount()) {
-                def key = m[0]
-                def newline = line.replace("{{ "+ key + " }}", getValue(key))
-                printWriter.println(newline)
+                m.each{line = line.replace("{{ "+ it + " }}", getValue(it))}
+                printWriter.println(line)
             } else {
                 printWriter.println(line)
             }
