@@ -8,15 +8,10 @@ repositories {
 }
 
 buildscript {
-
-    repositories {
-        mavenCentral()
-    }
-
+    repositories { mavenCentral() }
     dependencies {
         classpath "org.codehaus.groovy.modules.http-builder:http-builder:0.5.2"
     }
-
 }
 
 def render(template, config_file) {
@@ -29,16 +24,13 @@ def render(template, config_file) {
     temp_lines.each{line ->
         if (line.startsWith("#")) {
             printWriter.println(line)
-        }
-        else {
+        } else {
             def m = line =~ /(?<=\{\{ ).+(?= \}\})/
             if(m.getCount()) {
-                // 替换
                 def key = m[0]
                 def newline = line.replace("{{ "+ key + " }}", getValue(key))
                 printWriter.println(newline)
             } else {
-                // 原样输出
                 printWriter.println(line)
             }
         }
