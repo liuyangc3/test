@@ -46,7 +46,6 @@ remote_execute() {
   local output=$(
   expect << EOF
 set timeout -1
-#exp_internal 1
 log_user 0
 spawn ssh root@$ip
 expect "*~]#" {
@@ -54,10 +53,10 @@ expect "*~]#" {
 }
 expect "$command" {}   
 expect -re {\n(.*)\n.*} {
-  set hostname \$expect_out(1,string)
+  set out \$expect_out(1,string)
 }
 send "exit\r"
-puts \$hostname
+puts \$out
 close
 exit
 EOF
