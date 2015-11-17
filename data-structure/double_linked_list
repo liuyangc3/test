@@ -1,32 +1,37 @@
-# web
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
 
 class Node(object):
     def __init__(self, data, prev=None, next=None):
-        self.data= data
+        self.data = data
         self.prev = prev
         self.next = next
-        
+
+
 class DoubleLinkedList(object):
     def __init__(self):
         self.count = 0  # numbers of nodes
         self.head = None  # first node
         self.tail = None  # last node
-        
+        self.current = None  # current node
+
     def append(self, data):
         if self.head is None:
             self.head = self.tail = Node(data)
+            self.current = self.head
         else:
             node = Node(data, prev=self.tail)
             self.tail.next = node
             self.tail = node
         self.count += 1
-        
+
     def pop(self):
         if self.count == 0:
             res = None
         elif self.count == 1:
             res = self.tail.data
-            self.head = self.tail = None
+            self.head = self.tail = self.current = None
         else:
             res = self.tail.data
             self.tail = self.tail.prev
@@ -34,12 +39,49 @@ class DoubleLinkedList(object):
         self.count -= 1
         return res
 
+    def next(self):
+        if not self.current:
+            raise ValueError("Empty DoubleLinkedList")
+        if self.current.next:
+            self.current = self.current.next
+            return self.current
+        else:
+            raise StopIteration
+
+    def delete(self):
+        if self.count == 0:
+            raise ValueError("Empty DoubleLinkedList")
+        prev_node = self.current.prev
+        next_node = self.current.next
+        prev_node.next = next_node
+        next_node.prev = prev_node
+        self.count -= 1
+        self.current = next_node
+
+    def iter(self):
+        current_node = self.current
+
+        self.current = self.head
+        current = 0
+        while current < self.count:
+            yield self.current.data
+            self.next()
+            current += 1
+        self.current = current_node
+
+    def get_data_list(self):
+        return [item for item in self.iter()]
+
 if __name__ == '__main__':
     dll = DoubleLinkedList()
     dll.append('fuck')
     dll.append('you')
-    print(dll.count)
-    print(dll.pop())
-    print(dll.count)
-    print(dll.pop())
-    print(dll.count)  
+    dll.append('w')
+    dll.append('t')
+
+    dll.next()
+    dll.next()
+    dll.next()
+    print(dll.current.data)
+    print(dll.get_data_list())
+    print(dll.current.data)
