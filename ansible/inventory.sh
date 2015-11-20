@@ -1,9 +1,17 @@
 #!/bin/sh
+# shell version for ansible dynamic inventory hosts
 
-# shell version for ansible inventory hosts
+gen_inventorys_json() {
+  local inventory_group=tomcat
+  local network_prefix=192.168.0
+  printf "{\"$inventory_group\": ["
+  for i in {1..254}; do
+    printf "\"$network_prefix.%s\"," $i
+  done
+  printf "\"$network_prefix.255\"]}"
+}
 
-
-inventorys='{"tomcat": ["172.16.200.51"]}'
+inventorys=`gen_inventorys_json`
 
 get_host_info() {
   local host=$1
