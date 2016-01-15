@@ -1,21 +1,3 @@
-Skip to content
- 
-
-Search…
-All gists
-GitHub
-New gist
-@liuyangc3
- Edit
-  Delete
-  Star 0
-  @liuyangc3liuyangc3/show_mysql_performance.sh
-Last active a month ago
-Embed  
-<script src="https://gist.github.com/liuyangc3/5c68453bde44c5374b8f.js"></script>
-  Download ZIP
- Code  Revisions 2
-Raw  show_mysql_performance.sh
 #!/bin/sh
 
 usage() {
@@ -65,12 +47,4 @@ else if ($2 ~ /Uptime / && count >= 2){\
   printf("|%6d %8d %7d %7d",innodb_rows_read,innodb_rows_inserted,innodb_rows_updated,innodb_rows_deleted);\
   printf("|%10d %11d\n",innodb_lor,innodb_phr);\
 }}'
- @liuyangc3
- Styling with Markdown is supported
-Write Preview
 
-Leave a comment
-Attach files by dragging & dropping,  选择文件 selecting them, or pasting from the clipboard.
-Comment
-Status API Training Shop Blog About Pricing
-© 2016 GitHub, Inc. Terms Privacy Security Contact Help
