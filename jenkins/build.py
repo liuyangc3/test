@@ -2,10 +2,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'web'
 
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-__author__ = 'web'
-
 from time import sleep
 from jenkinsapi.jenkins import Jenkins
 
