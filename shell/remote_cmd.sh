@@ -1,6 +1,10 @@
 #!/bin/sh
+# execute a command on a remote host
+# get result of command to std
+# author: liuyangc33@gmail.com
+
 # usage:
-# ./remote_execute.sh 192.168.1.1 'passwd' hostname
+# ./remote_cmd.sh 192.168.1.1 'passwd' <cmd>
 
 ip=$1
 passwd=$2
