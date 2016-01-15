@@ -2,6 +2,7 @@
 
 # check activemq internal status
 # author liuyangc33@gmail.com
+
 usage() {
     cat << EOF
 `basename $0`: [option]
