@@ -1,10 +1,12 @@
 #!/bin/sh
+# a simple tamplate engine writen by shell
+# conver {{ var }} to value of var which defined in shell
+# author: liuyangc33@gmail.com
 
-# author: web
 # usage:
 # render.sh -i template -o filename
 
-global_var=""
+global=""
 
 ##### define zone #####
 foo=bar
@@ -30,11 +32,11 @@ parse_line() {
 replace() {
   local value="${!1}" # get value of variable that declare in define zone
   if [ ! $value ];then
-    global_var="{{ $1 }}"
+    global="{{ $1 }}"
   else
     # '&' cannot work in sed, so turn '&' into '\&'
     value=`echo ${value/&/\\\\&}`
-    global_var="$value"
+    global="$value"
   fi
 }
 
