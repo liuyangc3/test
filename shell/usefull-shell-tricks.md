@@ -39,6 +39,23 @@ echo Hello$'\t'world
 Hello   world
 ```
 
+# math
+```
+i=1
+((i++))  # i=i+1
+echo $i
+2
+let i=i+3
+echo $i
+4
+echo '1/2'|bc
+0
+echo '1/2'|bc -l
+.50000000000000000000
+echo 'scale=3;1/2'|bc
+.500
+```
+
 # Shell internal
 ## show shell variables
 ```
