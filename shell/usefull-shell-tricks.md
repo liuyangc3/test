@@ -40,6 +40,7 @@ Hello   world
 ```
 
 # math
+integer
 ```
 i=1
 ((i++))  # i=i+1
@@ -48,6 +49,9 @@ echo $i
 let i=i+3
 echo $i
 4
+```
+float
+```
 echo '1/2'|bc
 0
 echo '1/2'|bc -l
