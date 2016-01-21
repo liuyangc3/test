@@ -1,2 +1,2 @@
 # shell
-[userful shell triks] (shell/userful-shell-triks.md)
+[userful shell triks] (shell/usefull-shell-tricks.md)
