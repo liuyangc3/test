@@ -73,6 +73,12 @@ compgen -v  # short for -A variable
 (set -o posix;set)|xargs -d'\n'|grep -oP '(?<=_=posix ).*'
 ```
 
+# log
+## get exact -2 line
+tac file | sed -n '2p' | tac 
+
+## remove last 10 lines
+head -n -10 file
 
 # Other
 # use fd to send tcp package
