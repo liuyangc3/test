@@ -36,6 +36,7 @@ end
 t = { x = 0, fuck = "you", f=function() return 10 end, "no key", t={"hello"} }
 print_r(t)
 
+--[[
 table: 000000000002b960 {
   [1] => "no key"
   [x] => 0
@@ -44,5 +45,6 @@ table: 000000000002b960 {
   [t] => table: 000000000002b960 {
            [1] => "hello"
          }
-
+}
+]]
 
