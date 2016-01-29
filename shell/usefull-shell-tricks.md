@@ -76,7 +76,7 @@ compgen -v  # short for -A variable
 ```
 
 # lines
-## get exact -2 line
+## print last tow lines
 ```
 tac file | sed -n '2p' | tac 
 ```
