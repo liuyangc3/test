@@ -32,6 +32,8 @@ sed -e 's/=.*$//' <<< "$input"     # get key
 sed -e 's/^[^=]*=//' <<< "$input"  # get value
 ```
 
+
+
 # echo tabs in string
 use `$` + `string`
 ```
@@ -73,12 +75,19 @@ compgen -v  # short for -A variable
 (set -o posix;set)|xargs -d'\n'|grep -oP '(?<=_=posix ).*'
 ```
 
-# log
+# lines
 ## get exact -2 line
+```
 tac file | sed -n '2p' | tac 
-
+```
 ## remove last 10 lines
+```
 head -n -10 file
+```
+## remove last 2 char each line
+```
+sed -i 's//..$/' file
+```
 
 # Other
 # use fd to send tcp package
