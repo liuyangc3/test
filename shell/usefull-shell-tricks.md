@@ -3,6 +3,7 @@
 # String
 ## lower to upper
 ```
+# 3种方式
 echo $VAR | sed 's/\(.\)/\U\1/g'   # \(.\) match single character 
 tr '[a-z]' '[A-Z]' <<< "$VAR"
 echo $VAR | tr '[:lower:]' '[:upper:]'
