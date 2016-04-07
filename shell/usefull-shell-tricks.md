@@ -38,7 +38,7 @@ sed -e 's/^[^=]*=//' <<< "$input"  # get value
 
 
 # echo tabs in string
-use `$` + `string`
+use '`$`' + `string`
 ```
 echo Hello$'\t'world
 Hello   world
