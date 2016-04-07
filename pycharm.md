@@ -45,7 +45,9 @@ Shift + F3   前一个
 Ctrl + R   替换
 Ctrl + Shift + F   全局查找
 Ctrl + Shift + R   全局替换
- 3、运行(Running)
+```
+3、运行(Running)
+```
 Alt + Shift + F10   运行模式配置
 Alt + Shift + F9    调试模式配置
 Shift + F10    运行
