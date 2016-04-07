@@ -1,4 +1,5 @@
 1、编辑（Editing）
+```
 Ctrl + Space    基本的代码完成（类、方法、属性）
 Ctrl + Alt + Space  快速导入任意类
 Ctrl + Shift + Enter    语句完成
@@ -36,7 +37,9 @@ Ctrl + Numpad+/-   展开折叠代码块
 Ctrl + Numpad+   全部展开
 Ctrl + Numpad-   全部折叠
 Ctrl + F4   关闭运行的选项卡
- 2、查找/替换(Search/Replace)
+```
+2、查找/替换(Search/Replace)
+```
 F3   下一个
 Shift + F3   前一个
 Ctrl + R   替换
@@ -49,7 +52,9 @@ Shift + F10    运行
 Shift + F9   调试
 Ctrl + Shift + F10   运行编辑器配置
 Ctrl + Alt + R   运行manage.py任务
- 4、调试(Debugging)
+```
+4、调试(Debugging)
+```
 F8   跳过
 F7   进入
 Shift + F8   退出
@@ -59,7 +64,9 @@ Ctrl + Alt + F8   快速验证表达式
 F9    恢复程序
 Ctrl + F8   断点开关
 Ctrl + Shift + F8   查看断点
- 5、导航(Navigation)
+```
+5、导航(Navigation)
+```
 Ctrl + N    跳转到类
 Ctrl + Shift + N    跳转到符号
 Alt + Right/Left    跳转到下一个、前一个编辑的选项卡
@@ -89,11 +96,15 @@ Alt + Home显示导航条F11书签开关
 Ctrl + Shift + F11书签助记开关
 Ctrl + #[0-9]跳转到标识的书签
 Shift + F11显示书签
- 6、搜索相关(Usage Search)
+```
+6、搜索相关(Usage Search)
+```
 Alt + F7/Ctrl + F7文件中查询用法
 Ctrl + Shift + F7文件中用法高亮显示
 Ctrl + Alt + F7显示用法
- 7、重构(Refactoring)
+```
+7、重构(Refactoring)
+```
 F5复制F6剪切
 Alt + Delete安全删除
 Shift + F6重命名
@@ -104,15 +115,21 @@ Ctrl + Alt + V提取属性
 Ctrl + Alt + F提取字段
 Ctrl + Alt + C提取常量
 Ctrl + Alt + P提取参数
- 8、控制VCS/Local History
+```
+8、控制VCS/Local History
+```
 Ctrl + K提交项目
 Ctrl + T更新项目
 Alt + Shift + C查看最近的变化
 Alt + BackQuote(’)VCS快速弹出
+```
  9、模版(Live Templates)
+```
 Ctrl + Alt + J当前行使用模版
-Ctrl +Ｊ插入模版
+Ctrl + J插入模版
+```
  10、基本(General)
+```
 Alt + #[0-9]打开相应的工具窗口
 Ctrl + Alt + Y同步
 Ctrl + Shift + F12最大化编辑开关
@@ -122,13 +139,23 @@ Ctrl + BackQuote(’)快速切换当前计划
 Ctrl + Alt + S 打开设置页
 Ctrl + Shift + A查找编辑器里所有的动作
 Ctrl + Tab在窗口间进行切换
+```
 一些常用设置：
-1. pycharm默认是自动保存的，习惯自己按ctrl + s  的可以进行如下设置：
+
+pycharm默认是自动保存的，习惯自己按ctrl + s  的可以进行如下设置：
+
 1. Setting -> General -> Synchronization -> Save files on frame deactivation  和 Save files automatically if application is idle for .. sec 的勾去掉
+
 2. Setting -> Editor -> Editor Tabs -> Mark modified tabs with asterisk 打上勾
+
 2.  Alt + Enter: 自动添加包
+
 3. 对于常用的快捷键，由于之前一直用eclipse。所以可以设置：
+
 Setting -> Keymap -> Keymaps -> Eclipse -> Apply
+
 4. Pycharm中默认是不能用Ctrl+滚轮改变字体大小的，需要的话可以在Editor-〉Mouse中设置
+
 5. 要设置Pycharm的字体，要先在Editor中选择一种风格并保存，然后才可以改变
+
 6. 在setting中搜索theme可以改变主题，所有配色统一改变
