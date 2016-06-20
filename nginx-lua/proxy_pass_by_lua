@@ -1,19 +1,23 @@
-location / {
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+server {
+    listen 80;
+    resolver 8.8.8.8;
 
-    # proxy_pass 不用使用 upstream
-    # ramdom 算法
-    set $backends "";
-    rewrite_by_lua '
-        local backend = {
-            "http://domain1.com",
-            "http://domain2.com",
-            "http://domain3.com"
-        }
-        -- random chose a backend
-        ngx.var.backends = backend[math.random(#backend)]
-    ';
-    proxy_pass $backends;
-}
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    
+        # proxy_pass 不用使用 upstream
+        # ramdom 算法
+        set $backends "";
+        rewrite_by_lua '
+            local backend = {
+                "http://domain1.com",
+                "http://domain2.com",
+                "http://domain3.com"
+            }
+            -- random chose a backend
+            ngx.var.backends = backend[math.random(#backend)]
+        ';
+        proxy_pass $backends;
+    }
