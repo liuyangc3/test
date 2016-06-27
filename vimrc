@@ -44,3 +44,6 @@ hi NonText         ctermfg=239
 hi SpecialKey      ctermfg=239
 hi MatchParen      ctermfg=233  ctermbg=208 cterm=bold
 hi ModeMsg         ctermfg=229
+
+" F5 save and run python code 
+au BufRead *.py map <buffer> <F5> :w<CR>:!/usr/bin/env python % <CR>
