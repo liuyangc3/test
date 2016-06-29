@@ -1,6 +1,3 @@
-
-local cjson = require "cjson"
-
 -- init memcached
 local memcached = require "resty.memcached"
 local memc, err = memcached:new()
