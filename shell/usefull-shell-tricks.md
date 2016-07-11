@@ -34,10 +34,7 @@ input="foo=bar"
 sed -e 's/=.*$//' <<< "$input"     # get key 
 sed -e 's/^[^=]*=//' <<< "$input"  # get value
 ```
-
-
-
-# echo tabs in string
+## echo tabs in string
 use '`$`' + `string`
 ```
 echo Hello$'\t'world
@@ -93,7 +90,7 @@ sed -i 's//..$/' file
 ```
 
 # Other
-# use fd to send tcp package
+## use fd to send tcp package
 ```
 exec 6<>/dev/tcp/127.0.0.1/2181  # assign fd 6 to tcp sokect file
 echo ruok>&6   # wirte
@@ -103,13 +100,13 @@ exec 6>&-      # close fd
 ```
 
 
-# timestamp conver to date
+## timestamp conver to date
 ```
 ts=1451633323
 date -d "@$ts" +"%F %H:%M:%S"
 2016-01-01 15:28:43
 ```
-# date conver to timestamp
+## date conver to timestamp
 ```
 date="2016-01-01 15:28:43"
 date -d "$date" +%s
