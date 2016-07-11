@@ -115,3 +115,11 @@ date="2016-01-01 15:28:43"
 date -d "$date" +%s
 1451633323
 ```
+
+
+# array
+
+## sort
+```
+sorted=($(printf '%s\n' "${array[@]}"|sort))
+```
