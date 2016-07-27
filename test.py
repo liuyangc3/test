@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # divide a iter Object into specific groups
 
+import math
+
 def divide(data_list, groups):
     """
     :param data_list: 带分组数组
@@ -14,13 +16,17 @@ def divide(data_list, groups):
     if groups > length:
         groups = length
 
-    num_per_group = length // groups
+    
     
     # 保证每组内元素个数更接近一些
     # 例如 o-7 分3组应该是 ([0,1,2], [3,4,5], [6,7]
     # 而不是 ([0,1], [2,3], [4,5,6,7] 
-    if num_per_group <= length % groups:
-        num_per_group += 1
+    # a non math lib version:
+    # num_per_group = length // groups
+    # if num_per_group <= length % groups:
+    #    num_per_group += 1
+    
+    num_per_group = int(math.ceil(length * 1.0 / groups))
 
     slices = []
     start = 0
