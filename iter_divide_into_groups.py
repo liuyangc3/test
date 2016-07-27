@@ -3,21 +3,19 @@
 
 import math
 
-def divide(data_list, groups):
+def divide(iterobj, groups):
     """
-    :param data_list: 带分组数组
-    :param groups: 分组组数
+    :param iterobj: 待切分对象
+    :param groups: 分组的组数
     """
-    length = len(data_list)
+    length = len(iterobj)
     if length == 1:
-        return tuple(data_list)
+        return tuple(iterobj)
 
-    # 组数应该小于长度
+    # 组数应该小于元素个数
     if groups > length:
         groups = length
 
-    
-    
     # 保证每组内元素个数更接近一些
     # 例如 o-7 分3组应该是 ([0,1,2], [3,4,5], [6,7]
     # 而不是 ([0,1], [2,3], [4,5,6,7] 
@@ -34,11 +32,11 @@ def divide(data_list, groups):
         end = start + num_per_group
         slices.append(slice(start, end))
         start = end
-    # 最后一次切割应该到data的末尾
+    # 最后一个分组无需关心组内元素个数，应该切分到iterobj的最后一个元素
     slices[-1] = slice(start - num_per_group, length)
-    return tuple([data_list[s] for s in slices])
+    return tuple([iterobj[s] for s in slices])
 
-
+# test
 print divide(range(8), 3)
 print divide(range(14), 4)
 print divide(range(14), 3)
