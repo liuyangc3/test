@@ -15,6 +15,10 @@ def divide(data_list, groups):
         groups = length
 
     num_per_group = length // groups
+    
+    # 保证每组内元素个数更接近一些
+    # 例如 o-7 分3组应该是 ([0,1,2], [3,4,5], [6,7]
+    # 而不是 ([0,1], [2,3], [4,5,6,7] 
     if num_per_group <= length % groups:
         num_per_group += 1
 
