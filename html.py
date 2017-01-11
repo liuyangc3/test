@@ -97,7 +97,7 @@ html = E.HTML(E.BODY(
     E.H1("MySQL Port:{0}".format(port)),
     table1,
     table2,
-    E.IMG(src="data:image/png;base64,".format(img_base_64)),
+    E.IMG(src="data:image/png;base64,{0}".format(img_base_64)),
     E.H1("DEAD LOCK"),
     E.PRE(dead_lock_information)
 ))
