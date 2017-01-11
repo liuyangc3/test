@@ -1,0 +1,12 @@
+client:
+  force_ipv4: true
+clouds:
+  nxin:
+    auth:
+      auth_url: 'http://x.y.z:5000/'
+      username: liuyang
+      password: ********
+      project_id: 5eabd20c9803431cbb8e6f2c59df0683
+      user_domain_name: Default
+      project_domain_name: Default
+    region_name: RegionOne
