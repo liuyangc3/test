@@ -6,6 +6,8 @@ html
 ```groovy
 new URL("http://www.google.com").openConnection().with {
     setRequestProperty("Header", "value")
+    setRequestMethod("POST")
+    setDoOutput(true)
     inputStream.text  // getInputStream().text
     responseCode      // getResponseCode()
     responseMessage   // getResponseMessage()
@@ -43,4 +45,9 @@ def xml = new StreamingMarkupBuilder().bind {
         isGroup("1")
     }
 }
+```
+
+json
+```groovy
+new JsonSlurper().parseText('{ "name": "John Doe" })
 ```
