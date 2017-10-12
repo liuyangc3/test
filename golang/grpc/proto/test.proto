@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package liuyangc3.golangtest.project.grpc.service;
+
+import "google/api/annotations.proto";
+
+service ProjectService {
+    rpc GetProject (GetProjectRequest) returns (ProjectMessage) {
+        option (google.api.http) = {
+            get : "/v1/projects/{id}"
+        };
+    }
+}
+
+message GetProjectRequest {
+    string id = 1;
+}
+
+message ProjectMessage {
+    string id = 1;
+    string name = 2;
+}

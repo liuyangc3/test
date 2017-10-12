@@ -1,0 +1,2 @@
+protoc -I. -Ivendor --go_out=plugins=grpc:. project\proto\*.proto --grpc-gateway_out=logtostderr=true:.
+
