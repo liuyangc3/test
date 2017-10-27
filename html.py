@@ -1,5 +1,4 @@
 # -*- coding:utf-8 -*-
-
 import MySQLdb
 import lxml.html
 from lxml.html import builder as E
@@ -41,13 +40,6 @@ class AutoConnection(object):
             self.cursor.execute(*args)
             self.conn.commit()
 
-# global conn
-host = '10.211.253.26'
-user = 'dbn_admin'
-password = 'oM0bmpKc-O'
-db = 'rid'
-conn = AutoConnection(host, user, password, db)
-
 
 class Table(object):
     def __init__(self, length):
@@ -75,7 +67,8 @@ class Table(object):
         return E.TABLE(
             self.head,
             E.TBODY(*self.body),
-            border="1"
+            border="1",
+            cellspacing="0"
         )
 
 
@@ -102,4 +95,4 @@ html = E.HTML(E.BODY(
     E.PRE(dead_lock_information)
 ))
 
-print lxml.html.tostring(html)
+print(lxml.html.tostring(html))

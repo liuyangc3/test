@@ -3,65 +3,60 @@ package http
 import (
 	"testing"
 	"net/http"
-	"fmt"
-	"io/ioutil"
+	"os"
+	"os/signal"
+	"syscall"
 	"time"
 	"net"
+	"context"
 )
 
-const port  = ":8080"
-
-func TestRun(t *testing.T) {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World"))
-	})
-
-	err := http.ListenAndServe(port, nil)
-	if err != nil {
-		t.Fatalf("start http server fail: %v", err)
-	}
-}
-
-func TestServeMux(t *testing.T) {
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello World Mux"))
-	})
-
-	err := http.ListenAndServe(port, mux)
-	if err != nil {
-		t.Fatalf("start http server fail: %v", err)
-	}
-}
-
-
-type Handler func(http.ResponseWriter, *http.Request)
-func (f Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("---- ServeHTTP ----\n"))
-	f(w, r)
-}
+var port = ":8080"
 
 func TestHandle(t *testing.T) {
-	var handler Handler = func (w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("TestHandle"))
+	// this not work because http.Handle need
+	// interface http.Handler as second argument
+	//http.Handle("/", func(w http.ResponseWriter, r *http.Request) {
+	//	w.Write([]byte("Hello World"))
+	//})
+
+	var handler http.HandlerFunc = func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Test http.Handle"))
 	}
-	// Handle accept a interface rather than a function in HandleFunc
 	http.Handle("/", handler)
 
-	if err := http.ListenAndServe(port, nil); err != nil {
-		t.Fatalf("start http server fail: %v", err)
-	}
+	_ = http.ListenAndServe(port, nil)
 }
 
+// go test http\http_test.go -run TestHandleFunc
+func TestHandleFunc(t *testing.T) {
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Test http.HandleFunc"))
+	})
 
+	_ = http.ListenAndServe(port, nil)
+}
+
+// go test http\http_test.go -run TestServeMux
+func TestServeMux(t *testing.T) {
+	mux := http.NewServeMux()
+
+	// use mux.Handle() is same
+	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("Test mux.ServeMux"))
+	})
+	_ = http.ListenAndServe(port, mux)
+}
+
+// go test http\http_test.go -run TestHttpServer
 func TestHttpServer(t *testing.T) {
-	var handler Handler = func (w http.ResponseWriter, r *http.Request) {
+	var handler http.HandlerFunc = func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("TestHttpServer"))
 	}
 
 	// just what does http.ListenAndServe do
 	server := &http.Server{
-		Handler:      handler, // interface http.Handler ServeHTTP
+		Handler:      http.HandlerFunc(handler), // interface http.Handler ServeHTTP
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
 	}
@@ -76,17 +71,64 @@ func TestHttpServer(t *testing.T) {
 	}
 }
 
+// Graceful stop
+// https://github.com/facebookgo/httpdown
+// https://gist.github.com/peterhellberg/38117e546c217960747aacf689af3dc2
 
-func TestClient(t *testing.T) {
-	resp, err := http.Get(fmt.Sprintf("http://127.0.0.1%s", port ))
-	if err != nil {
-		t.Fatalf("client error: %v", err)
-	}
-	defer resp.Body.Close()
+// new in go 1.8 func (srv *Server) Shutdown(ctx context.Context) error
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		t.Fatalf("read body error: %v", err)
+// go test http\http_test.go -run TestSignalStop
+func TestSignalStop(t *testing.T) {
+	var signalChan = make(chan os.Signal)
+	signal.Notify(signalChan, os.Interrupt, syscall.SIGTERM)
+	signal.Notify(signalChan, syscall.SIGINT)
+
+	var handler http.HandlerFunc = func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte("TestSignalStop"))
 	}
-	t.Log(string(body))
+
+	server := &http.Server{Addr: port, Handler: handler}
+
+	go func() {
+		println("Listening on http://0.0.0.0%s\n", port)
+		if err := server.ListenAndServe(); err != nil {
+			t.Fatal(err)
+		}
+	}()
+
+	<-signalChan
+	ctx, _ := context.WithTimeout(context.Background(), 1*time.Second)
+	println("stop server 1 second after")
+	server.Shutdown(ctx)
+
 }
+
+// go test http\http_test.go -run TestHijack
+func TestHijack(t *testing.T) {
+
+	http.HandleFunc("/hijack", func(w http.ResponseWriter, r *http.Request) {
+		hj, ok := w.(http.Hijacker)
+		if !ok {
+			http.Error(w, " Hijacker error", http.StatusInternalServerError)
+			return
+		}
+
+		conn, buf, err := hj.Hijack()
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		defer conn.Close()
+		// can not use w.Write
+		// http: response.Write on hijacked connection
+		w.Write([]byte("hello"))
+
+		// in TCP
+		buf.WriteString("Test Hijack")
+		buf.Flush()
+	})
+
+	_ = http.ListenAndServe(port, nil)
+}
+
+// http.ResponseWriter.Flush()  ???
