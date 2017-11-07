@@ -1,24 +1,42 @@
 # -*- coding:utf-8 -*-
+"""
++---------------- figure --------------------+
+|                                            |
+|    ^   +------ subplot/Axes ----------+    |
+|  Y | 2 |                              |    |
+|  A |   |                              |    |
+|  x | 1 |                              |    |
+|  i |   |                              |    |
+|  s |   +------------------------------+    |
+|        0    1    2    3    4               |
+|        <-------------X Axis ---------->    |
+|                                            |
+|                                            |
++--------------------------------------------+
+"""
 from calendar import day_abbr
 import matplotlib.pyplot as plt
 
 # (qps,tps,conn)
 data = [(15, 4, 10), (17, 5, 9), (10, 3, 5), (4, 2, 1), (20, 14, 6), (8, 3, 2), (16, 3, 14)]
 
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 用来正常显示中文标签
+plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+
 qps_week, tps_week, conn_week = zip(*data)
-plt.figure(1)                           # 第一张图
+plt.figure(1)  # 第一张图
 
 # QPS
-plt.subplot(311)                        # 311 = 子图是3行1列共三张，其中的第一个子图
-plt.title('daily QPS of this week')     # 标题
+plt.subplot(311)  # 311 = 子图是3行1列共三张，其中的第一个子图
+plt.title('daily QPS of this week')  # 标题
 plt.axis([0, 6, 0, max(qps_week) + 5])  # 图的范围 x-min x-max y-min y-max
-plt.xlabel('this week')                 # x 轴标签
-plt.xticks(range(7), day_abbr)          # x 轴各列名称
+plt.xlabel('this week')  # x 轴标签
+plt.xticks(range(7), day_abbr)  # x 轴各列名称
 plt.ylabel('QPS')
 plt.plot(range(7), qps_week)
 
 # TPS
-plt.subplot(312)                        # 第二个子图
+plt.subplot(312)  # 第二个子图
 plt.title('daily TPS of this week')
 plt.axis([0, 6, 0, max(tps_week) + 5])
 plt.xlabel('this week')
@@ -35,5 +53,5 @@ plt.xticks(range(7), day_abbr)
 plt.ylabel('connection')
 plt.plot(range(7), conn_week)
 
-plt.tight_layout()                      # 自动调整子图 subplot 之间的间距
+plt.tight_layout()  # 自动调整子图 subplot 之间的间距
 plt.show()
