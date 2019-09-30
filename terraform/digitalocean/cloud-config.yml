@@ -1,5 +1,4 @@
 #cloud-config
-
 users:
   - name: ${ssh_user}
     ssh_authorized_keys:
