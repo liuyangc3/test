@@ -18,7 +18,7 @@ write_files:
       HostKey /etc/ssh/ssh_host_ed25519_key
       UsePrivilegeSeparation yes
       KeyRegenerationInterval 3600
-      ServerKeyBits 1024
+      # ServerKeyBits 1024
       SyslogFacility AUTH
       LogLevel INFO
       LoginGraceTime 120
